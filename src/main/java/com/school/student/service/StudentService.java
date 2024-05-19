@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 import static com.school.student.util.StringUtils.isNotBlank;
 
 @AllArgsConstructor
@@ -28,11 +26,11 @@ public class StudentService {
                 cb.isNotNull(root.get(StudentEntity.Fields.id)));
 
         if (isNotBlank(student.getName())) {
-            spec.and((root, query, cb) ->
+            spec = spec.and((root, query, cb) ->
                     cb.like(root.get(StudentEntity.Fields.name), student.getName() + "%"));
         }
         if (isNotBlank(student.getCourse())) {
-            spec.and((root, query, cb) ->
+            spec = spec.and((root, query, cb) ->
                     cb.like(root.get(StudentEntity.Fields.course), student.getCourse() + "%"));
         }
         return studentRepo.findAll(spec, pageable);
