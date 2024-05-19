@@ -1,1 +1,3 @@
-rootProject.name = "student"
+rootProject.name = "school"
+
+include("student")
